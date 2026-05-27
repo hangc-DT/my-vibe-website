@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quotation Generator - Local Font</title>
+    <title>1CM Creative Invoice Generator</title>
     <style>
         /* ==========================================================
            LOAD LOCAL TTF FONT 
            ========================================================== */
         @font-face {
             font-family: 'MyLocalFont';
-            /* Make sure the filename below matches your actual .ttf file exactly */
-            src: url('my-custom-font.otf') format('truetype');
+            src: url('my-custom-font.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
 
         :root {
-            --bg-workspace: #0f172a;
-            --panel-bg: #1e293b;
-            --accent: #38bdf8;
-            --text: #f8fafc;
-            --border: #334155;
+            --bg-workspace: #171717; 
+            --panel-bg: #000000;      
+            --accent: #ffea00;        
+            --text: #ffffff;
+            --text-muted: #a3a3a3;
+            --border: #262626;
+            --input-bg: #141414;
+            --input-border: #404040;
             
-            /* Apply your local font to both headers and data layout */
-            --font-display: 'MyLocalFont', sans-serif;
-            --font-data: 'MyLocalFont', sans-serif;
+            --font-main: 'MyLocalFont', Arial, sans-serif;
         }
 
         * {
@@ -40,47 +40,38 @@
             display: flex;
             height: 100vh;
             overflow: hidden;
-            font-family: var(--font-data);
+            font-family: var(--font-main);
         }
 
-        /* Input Sidebar Area */
+        /* ==========================================================
+           BRANDED INPUT SIDEBAR DESIGN
+           ========================================================== */
         .input-panel {
-            width: 35%;
+            width: 38%;
             background-color: var(--panel-bg);
-            border-right: 1px solid var(--border);
-            padding: 1.5rem;
+            border-right: 2px solid #262626;
+            padding: 2rem 1.5rem;
             overflow-y: auto;
             height: 100%;
-        }
-
-        /* Preview Canvas Area */
-        .preview-panel {
-            width: 65%;
-            padding: 2rem;
-            overflow-y: auto;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #334155;
         }
 
         h2 {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 700;
-            margin: 1.5rem 0 0.75rem 0;
-            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin: 2rem 0 1rem 0;
+            color: var(--text);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            border-left: 4px solid var(--accent); 
+            padding-left: 0.6rem;
         }
         h2:first-of-type { margin-top: 0; }
 
         .form-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
         .form-control {
@@ -89,157 +80,191 @@
         }
 
         label {
-            font-family: var(--font-display);
-            font-weight: 500;
             font-size: 0.7rem;
-            color: #94a3b8;
-            margin-bottom: 0.25rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         input, textarea {
-            font-family: var(--font-data);
-            background: #0f172a;
-            border: 1px solid var(--border);
+            font-family: var(--font-main);
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
             color: #fff;
-            padding: 0.5rem;
-            border-radius: 4px;
+            padding: 0.6rem;
+            border-radius: 0px; 
             font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
 
         input:focus, textarea:focus {
             border-color: var(--accent);
+            background: #1a1a1a;
             outline: none;
+            box-shadow: 0 0 5px rgba(255, 234, 0, 0.2);
         }
 
         .items-table-input {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 0.5rem;
         }
 
         .items-table-input th {
-            font-family: var(--font-display);
             text-align: left;
             font-size: 0.7rem;
-            color: #94a3b8;
-            padding-bottom: 0.25rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            padding-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .items-table-input td {
+            padding: 0.4rem 0;
+            border-bottom: 1px solid #1f1f1f;
+            vertical-align: top;
         }
 
         .items-table-input input {
             width: 100%;
-            padding: 0.35rem;
+            padding: 0.5rem;
             font-size: 0.85rem;
         }
 
-        .btn-primary {
-            font-family: var(--font-display);
-            width: 100%;
-            background: #10b981;
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 1.5rem;
-            transition: background 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .subdesc-input {
+            margin-top: 0.35rem; 
+            border-color: #262626; 
+            font-size: 0.8rem; 
+            color: #a3a3a3;
         }
 
-        .btn-primary:hover { background: #059669; }
+        .btn-primary {
+            font-family: var(--font-main);
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 0px; 
+            font-weight: 900;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover { 
+            background: #ffffff;
+            color: #000;
+        }
+
+        .preview-panel {
+            width: 62%;
+            padding: 2rem;
+            overflow-y: auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #262626; 
+        }
 
         /* ==========================================================
-           THE A4 PRINT SHEET TARGET 
+           THE 1CM INVOICE PIXEL-PERFECT SHEET TARGET
            ========================================================== */
         .a4-page {
             width: 794px;  
             height: 1123px; 
-            background-image: url('quotation-form.png');
+            /* MODIFICATION 1: Changed background graphic format to PNG */
+            background-image: url('1cm_invoice.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-color: white;
             position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             flex-shrink: 0;
         }
 
-        /* Text Placement Layer Styles */
         .meta-text {
             position: absolute;
-            font-family: var(--font-data);
-            font-size: 13px;
-            color: #000;
+            font-family: var(--font-main);
+            font-size: 17px;
+            color: #1a1a1a;
+            font-weight: bold;
         }
 
-        /* ----------------------------------------------------------
-           ALIGNMENT SETTINGS: Tweak these percentages to shift text
-           ---------------------------------------------------------- */
-        #out-date        { top: 15.6%; left: 77.0%; }
-        #out-quote       { top: 17.9%; left: 77.0%; }
-        #out-customer-id { top: 20.1%; left: 77.0%; }
-        #out-valid       { top: 22.3%; left: 77.0%; }
+ /* FIXED: Added position: absolute explicitly to the #out-to container rule below */
+        #out-to          { position: absolute; top: 21.0%; left: 6.5%; width: 30%; height: 12%; white-space: pre-wrap; line-height: 1.4; color: #000; font-weight: bold; font-size: 14px; }
+        #out-date        { top: 26.7%; left: 38.0%; }
+        #out-no          { top: 26.7%; left: 71.0%; }
+        #out-date-issued { top: 31.5%; left: 38.0%; }
+        #out-total-due   { top: 31.5%; left: 71.0%; font-size: 17px; color: #000; } 
 
-        #out-c-company   { top: 27.0%; left: 21.0%; }
-        #out-c-name      { top: 28.9%; left: 16.0%; }
-        #out-c-address   { top: 30.9%; left: 17.5%; }
-        #out-c-email     { top: 32.8%; left: 16.0%; }
-        #out-c-phone     { top: 34.7%; left: 16.5%; }
-
-        /* Rows Setup */
         .render-row {
             position: absolute;
             display: flex;
-            width: 86%;
-            left: 7%;
-            font-family: var(--font-data);
-            font-size: 12px;
-            color: #000;
+            align-items: flex-start;
+            width: 87.0%;
+            left: 6.5%;
+            font-family: var(--font-main);
+            font-size: 13px;
+            color: #222;
         }
 
-        .col-item   { width: 10.5%; text-align: center; }
-        .col-desc   { width: 31.5%; text-align: left; padding-left: 5px; }
-        .col-qty    { width: 12.5%; text-align: center; }
-        .col-price  { width: 12.5%; text-align: right; }
-        .col-disc   { width: 13.5%; text-align: center; }
-        .col-total  { width: 19.5%; text-align: right; }
+        .col-desc   { width: 37%; text-align: left; padding-left: 5px; display: flex; flex-direction: column; }
+        .col-price  { width: 14.5%; text-align: right; padding-right: 15px; margin-top: 2px; }
+        .col-qty    { width: 29.5%; text-align: center; margin-top: 2px; }
+        .col-total  { width: 11.5%; text-align: right; padding-right: 5px; font-weight: bold; margin-top: 2px; }
 
-        /* Vertical Heights for Rows 1 to 8 */
-        #row-0 { top: 39.3%; }
-        #row-1 { top: 41.8%; }
-        #row-2 { top: 44.3%; }
-        #row-3 { top: 46.8%; }
-        #row-4 { top: 49.3%; }
-        #row-5 { top: 51.8%; }
-        #row-6 { top: 54.3%; }
-        #row-7 { top: 56.8%; }
+        /* MODIFICATION 3: Gray & smaller styling properties for item sub-descriptions */
+        .out-title-main {
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+        
+        .out-title-sub {
+            font-size: 11px;
+            color: #737373; /* Smooth gray tone */
+            font-weight: normal;
+            margin-top: 1px;
+            line-height: 1.2;
+        }
 
-        /* Calculation Block Positions */
+        /* Row heights variables */
+        #row-0 { top: 42.5%; }
+        #row-1 { top: 45.7%; }
+        #row-2 { top: 48.9%; }
+        #row-3 { top: 52.1%; }
+        #row-4 { top: 55.3%; }
+        #row-5 { top: 58.5%; }
+        #row-6 { top: 61.7%; }
+        #row-7 { top: 64.9%; }
+
+        /* Grand Total field config */
         .summary-block {
             position: absolute;
-            left: 77.0%;
-            width: 16%;
+            left: 74.5%;
+            width: 13.5%;
             text-align: right;
-            font-family: var(--font-data);
-            font-size: 13px;
+            font-family: var(--font-main);
             color: #000;
+            font-weight: bold;
         }
-        #out-subtotal { top: 60.1%; }
-        #out-tax      { top: 62.6%; }
-        #out-taxrate  { top: 65.0%; }
-        #out-shipping { top: 67.4%; }
-        #out-balance  { top: 69.9%; }
+        #out-grand    { top: 80.3%; font-size: 20px; }
 
-        #out-notes {
+        #out-payment {
             position: absolute;
-            top: 62.8%;
-            left: 10.5%;
-            width: 55%;
+            top: 85.5%;
+            left: 6.5%;
+            width: 45%;
             height: 8%;
-            font-family: var(--font-data);
+            font-family: var(--font-main);
             font-size: 12px;
-            color: #000;
+            color: #333;
             white-space: pre-wrap;
             line-height: 1.4;
         }
@@ -284,72 +309,56 @@
 <body>
 
     <div class="input-panel">
-        <h2 style="margin-top: 0;">MetaData</h2>
+        <h2 style="margin-top: 0;">Invoice Metadata</h2>
         <div class="form-group">
-            <div class="form-control"><label>Date</label><input type="text" id="in-date" value="2026-05-22"></div>
-            <div class="form-control"><label>Quote #</label><input type="text" id="in-quote" value="QT-001"></div>
-            <div class="form-control"><label>Customer ID</label><input type="text" id="in-customer-id" value="CUST-99"></div>
-            <div class="form-control"><label>Valid Until</label><input type="text" id="in-valid" value="30 Days"></div>
+            <div class="form-control"><label>Date</label><input type="text" id="in-date" value="2026-05-27"></div>
+            <div class="form-control"><label>Invoice No (NO:)</label><input type="text" id="in-no" value="INV-2026-001"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control"><label>Date Issued</label><input type="text" id="in-date-issued" value="2026-05-27"></div>
+            <div class="form-control"><label>Total Due</label><input type="text" id="in-total-due" readonly style="opacity: 0.5; cursor: not-allowed;"></div>
         </div>
         
-        <h2>Customer Details</h2>
-        <div class="form-group" style="grid-template-columns: 1fr;">
-            <div class="form-control"><label>Company Name</label><input type="text" id="in-c-company" value="Acme Corp"></div>
-            <div class="form-control"><label>Contact Name</label><input type="text" id="in-c-name" value="John Doe"></div>
-            <div class="form-control"><label>Address</label><input type="text" id="in-c-address" value="123 Science Park Rd"></div>
-            <div class="form-control"><label>E-mail</label><input type="text" id="in-c-email" value="john@acme.com"></div>
-            <div class="form-control"><label>Phone</label><input type="text" id="in-c-phone" value="+1 555-0199"></div>
+        <h2>Client Details (To)</h2>
+        <div class="form-control" style="margin-bottom: 0.75rem;">
+            <label>Billing Destination Info</label>
+            <textarea id="in-to" rows="4" placeholder="Client Info...">Client Corporation Ltd.&#10;Attn: Project Manager&#10;123 Cyberport Road, Hong Kong</textarea>
         </div>
 
-        <h2>Items Table (Max 8)</h2>
+        <h2>Line Items (Max 8 Rows)</h2>
         <table class="items-table-input">
             <thead>
                 <tr>
-                    <th style="width: 15%">Item</th>
-                    <th style="width: 45%">Description</th>
-                    <th style="width: 10%">Qty</th>
-                    <th style="width: 15%">Price</th>
-                    <th style="width: 15%">Disc%</th>
+                    <th style="width: 55%">Description & Sub-Text</th>
+                    <th style="width: 25%">Price ($)</th>
+                    <th style="width: 20%">Qty</th>
                 </tr>
             </thead>
             <tbody id="input-rows-container"></tbody>
         </table>
 
-        <h2>Financial Adjustments</h2>
-        <div class="form-group">
-            <div class="form-control"><label>Tax Rate (%)</label><input type="number" id="in-taxrate" value="5" step="0.01"></div>
-            <div class="form-control"><label>Shipping ($)</label><input type="number" id="in-shipping" value="15.00" step="0.01"></div>
-        </div>
+        <h2>Footer & Payment Information</h2>
         <div class="form-control">
-            <label>Notes / Special Comments</label>
-            <textarea id="in-notes" rows="2">Thank you for your business!</textarea>
+            <label>Payment Info Details</label>
+            <textarea id="in-payment" rows="3">Bank: Creative Tech Bank&#10;Account No: 123-456789-001&#10;FPS ID: 97627811</textarea>
         </div>
 
-        <button class="btn-primary" onclick="window.print()">Open Print / Save PDF</button>
+        <button class="btn-primary" onclick="window.print()">Print / Export Invoice PDF</button>
     </div>
 
     <div class="preview-panel">
         <div class="a4-page">
+            <div id="out-to"></div>
             <div class="meta-text" id="out-date"></div>
-            <div class="meta-text" id="out-quote"></div>
-            <div class="meta-text" id="out-customer-id"></div>
-            <div class="meta-text" id="out-valid"></div>
-
-            <div class="meta-text" id="out-c-company"></div>
-            <div class="meta-text" id="out-c-name"></div>
-            <div class="meta-text" id="out-c-address"></div>
-            <div class="meta-text" id="out-c-email"></div>
-            <div class="meta-text" id="out-c-phone"></div>
+            <div class="meta-text" id="out-no"></div>
+            <div class="meta-text" id="out-date-issued"></div>
+            <div class="meta-text" id="out-total-due"></div>
 
             <div id="output-rows-container"></div>
 
-            <div class="summary-block" id="out-subtotal"></div>
-            <div class="summary-block" id="out-tax"></div>
-            <div class="summary-block" id="out-taxrate"></div>
-            <div class="summary-block" id="out-shipping"></div>
-            <div class="summary-block" id="out-balance"></div>
+            <div class="summary-block" id="out-grand"></div>
 
-            <div id="out-notes"></div>
+            <div id="out-payment"></div>
         </div>
     </div>
 
@@ -358,75 +367,78 @@
         const inputContainer = document.getElementById('input-rows-container');
         const outputContainer = document.getElementById('output-rows-container');
 
-        // Setup DOM templates
+        // Dynamic generation algorithm initialization 
         let rowsHtml = '';
         let outputHtml = '';
         for(let i=0; i<MAX_ROWS; i++) {
             rowsHtml += `
                 <tr>
-                    <td><input type="text" class="tr-item" data-idx="${i}" value="${i===0?'01':''}"></td>
-                    <td><input type="text" class="tr-desc" data-idx="${i}" value="${i===0?'Engineering Design Work':''}"></td>
-                    <td><input type="number" class="tr-qty" data-idx="${i}" value="${i===0?'5':'0'}"></td>
-                    <td><input type="number" class="tr-price" data-idx="${i}" value="${i===0?'120.00':'0.00'}" step="0.01"></td>
-                    <td><input type="number" class="tr-disc" data-idx="${i}" value="0"></td>
+                    <td>
+                        <input type="text" class="tr-desc" data-idx="${i}" value="${i===0?'Media Production Services':''}" placeholder="Main Title">
+                        <input type="text" class="tr-subdesc subdesc-input" data-idx="${i}" value="${i===0?'Color grading and 4K multi-cam assembly rendering':''}" placeholder="Gray Sub-description">
+                    </td>
+                    <td><input type="number" class="tr-price" data-idx="${i}" value="${i===0?'8500.00':'0.00'}" step="0.01"></td>
+                    <td><input type="number" class="tr-qty" data-idx="${i}" value="${i===0?'1':'0'}"></td>
                 </tr>`;
             outputHtml += `
                 <div class="render-row" id="row-${i}">
-                    <div class="col-item" id="out-item-${i}"></div>
-                    <div class="col-desc" id="out-desc-${i}"></div>
-                    <div class="col-qty" id="out-qty-${i}"></div>
+                    <div class="col-desc">
+                        <div class="out-title-main" id="out-desc-${i}"></div>
+                        <div class="out-title-sub" id="out-subdesc-${i}"></div>
+                    </div>
                     <div class="col-price" id="out-price-${i}"></div>
-                    <div class="col-disc" id="out-disc-${i}"></div>
+                    <div class="col-qty" id="out-qty-${i}"></div>
                     <div class="col-total" id="out-total-${i}"></div>
                 </div>`;
         }
         inputContainer.innerHTML = rowsHtml;
         outputContainer.innerHTML = outputHtml;
 
-        const fields = ['date', 'quote', 'customer-id', 'valid', 'c-company', 'c-name', 'c-address', 'c-email', 'c-phone', 'notes'];
-        fields.forEach(field => {
+        // Establish core static elements sync links
+        const staticFields = ['date', 'no', 'date-issued', 'to', 'payment'];
+        staticFields.forEach(field => {
             const inp = document.getElementById(`in-${field}`);
             const out = document.getElementById(`out-${field}`);
             inp.addEventListener('input', () => out.textContent = inp.value);
             out.textContent = inp.value;
         });
 
-        document.querySelectorAll('.tr-item, .tr-desc, .tr-qty, .tr-price, .tr-disc, #in-taxrate, #in-shipping')
-            .forEach(el => el.addEventListener('input', runCalculations));
+        // Add execution calculation event listeners
+        document.querySelectorAll('.tr-desc, .tr-subdesc, .tr-price, .tr-qty')
+            .forEach(el => el.addEventListener('input', computeTotals));
 
-        function runCalculations() {
-            let subtotal = 0;
+        function computeTotals() {
+            let runningTotal = 0;
+            
             for(let i=0; i<MAX_ROWS; i++) {
-                const item = document.querySelector(`.tr-item[data-idx="${i}"]`).value;
                 const desc = document.querySelector(`.tr-desc[data-idx="${i}"]`).value;
-                const qty = parseFloat(document.querySelector(`.tr-qty[data-idx="${i}"]`).value) || 0;
+                const subdesc = document.querySelector(`.tr-subdesc[data-idx="${i}"]`).value;
                 const price = parseFloat(document.querySelector(`.tr-price[data-idx="${i}"]`).value) || 0;
-                const disc = parseFloat(document.querySelector(`.tr-disc[data-idx="${i}"]`).value) || 0;
+                const qty = parseFloat(document.querySelector(`.tr-qty[data-idx="${i}"]`).value) || 0;
 
-                const total = (qty * price) * (1 - disc/100);
-                subtotal += total;
+                const lineTotal = price * qty;
+                runningTotal += lineTotal;
 
-                document.getElementById(`out-item-${i}`).textContent = item;
+                // Sync description nodes
                 document.getElementById(`out-desc-${i}`).textContent = desc;
-                document.getElementById(`out-qty-${i}`).textContent = qty > 0 ? qty : '';
+                document.getElementById(`out-subdesc-${i}`).textContent = subdesc;
+                
+                // Sync financial nodes
                 document.getElementById(`out-price-${i}`).textContent = price > 0 ? price.toFixed(2) : '';
-                document.getElementById(`out-disc-${i}`).textContent = disc > 0 ? `${disc}%` : '';
-                document.getElementById(`out-total-${i}`).textContent = total > 0 ? total.toFixed(2) : '';
+                document.getElementById(`out-qty-${i}`).textContent = qty > 0 ? qty : '';
+                document.getElementById(`out-total-${i}`).textContent = lineTotal > 0 ? lineTotal.toFixed(2) : '';
             }
 
-            const taxRate = parseFloat(document.getElementById('in-taxrate').value) || 0;
-            const shipping = parseFloat(document.getElementById('in-shipping').value) || 0;
-            const tax = subtotal * (taxRate / 100);
-            const balance = subtotal + tax + shipping;
-
-            document.getElementById('out-subtotal').textContent = subtotal > 0 ? `$${subtotal.toFixed(2)}` : '';
-            document.getElementById('out-taxrate').textContent = taxRate > 0 ? `${taxRate}%` : '0%';
-            document.getElementById('out-tax').textContent = tax > 0 ? `$${tax.toFixed(2)}` : '';
-            document.getElementById('out-shipping').textContent = shipping > 0 ? `$${shipping.toFixed(2)}` : '';
-            document.getElementById('out-balance').textContent = balance > 0 ? `$${balance.toFixed(2)}` : '';
+            const formattedTotal = `$${runningTotal.toFixed(2)}`;
+            
+            // MODIFICATION 2: Sub-Total calculations are skipped, directly outputting Grand Total
+            document.getElementById('out-grand').textContent = runningTotal > 0 ? formattedTotal : '$0.00';
+            
+            document.getElementById('out-total-due').textContent = runningTotal > 0 ? formattedTotal : '$0.00';
+            document.getElementById('in-total-due').value = runningTotal > 0 ? formattedTotal : '$0.00';
         }
 
-        runCalculations();
+        computeTotals();
     </script>
 </body>
 </html>
